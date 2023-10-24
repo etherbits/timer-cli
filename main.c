@@ -68,7 +68,8 @@ int main(int argc, char *argv[]) {
 
   while(time(NULL) < endSeconds){
     sleep(1);
-    printf("left: %ld\n", endSeconds-time(NULL));
+    printf("\rleft: %ld\n", endSeconds-time(NULL));
+    fflush(stdout);
   }
 
   return 0;
