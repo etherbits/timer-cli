@@ -17,12 +17,23 @@ int main(int argc, char *argv[]) {
   struct Duration dur = durFromString(formattedDuration);
   time_t endSeconds = time(NULL) + getDurSeconds(dur);
 
+  FILE *fp;
+
+  if (argc > 3 && !strcmp(argv[2], "--waybar")) {
+    fp = fopen(argv[3], "w");
+  }
+
   while (time(NULL) < endSeconds) {
     struct Duration currDur = durFromSeconds(endSeconds - time(NULL));
     struct FormattedDuration fd = getFormattedDuration(currDur);
-
-    printf("\r%s:\r\n%s:\n%s", fd.h, fd.m, fd.s);
-    fflush(stdout);
+    if (argc < 3 || strcmp(argv[2], "--waybar")) {
+      printf("\r%s:%s:%s", fd.h, fd.m, fd.s);
+      fflush(stdout);
+    } else {
+      fseek(fp, 0, SEEK_SET);
+      fprintf(fp, "{\"text\": \"%s\\n%s\\n%s\"}", fd.h, fd.m, fd.s);
+      fflush(fp);
+    }
 
     sleep(1);
   }

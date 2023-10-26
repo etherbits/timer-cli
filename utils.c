@@ -5,7 +5,7 @@
 #include <time.h>
 #include <unistd.h>
 
-void printUsage() { printf("usage: timer [HH:MM:SS]\nexample: timer 15:00\n"); }
+void printUsage() { printf("usage: timer [HH:MM:SS] [options]\nexample: timer 15:00 --waybar path\n"); }
 
 struct Duration {
   char h, m, s;
