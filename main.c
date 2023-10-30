@@ -38,5 +38,9 @@ int main(int argc, char *argv[]) {
     sleep(1);
   }
 
+  if (argc > 3 && !strcmp(argv[2], "--waybar")) {
+    remove(argv[3]);
+  }
+
   return 0;
 }
